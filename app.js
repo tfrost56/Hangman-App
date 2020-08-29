@@ -88,7 +88,7 @@
         if(answer === wordStatus){document.querySelector(".keyboard").innerHTML = "YOU WIN";}}
     function checkIfLost() {
         if(lives < 1){document.querySelector(".keyboard").innerHTML = `YOU LOOSE THE ANSWER IS ${answer}.`;}}
-    function resetKeyboard(){
+    function recreateKeyboard(){
         document.querySelector(".keyboard").innerHTML = orginalText;
     }
     
@@ -99,25 +99,26 @@
         });
     };
 
-    function replay (){
-        replayBtn.addEventListener("click", function(){
-        guessed = [];
-        lives = 6;
-        wordStatus = null;
-        resetKeyboard();
+    const gameReset = () => {
         updateLivesUi();
         keyEvent();
         randomWord();
         guessedWord();
         updateHangmanImage();
+    };
+
+    function replay (){
+        replayBtn.addEventListener("click", function(){
+        guessed = [];
+        lives = 6;
+        wordStatus = null;
+        recreateKeyboard();
+        gameReset();
         });
     };
 
     difficulty();
-    updateLivesUi();
-    keyEvent();
-    randomWord();
-    guessedWord();
+    gameReset();
     replay();
 
 
