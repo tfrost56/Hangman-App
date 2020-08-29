@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%; /*1 rem = 10px: 10px/16px = 62.5%*/
+}
+
+body{
+    height: 100%;
+    font-size: 2rem;
+    background-color: rgb(149, 185, 253);
+    color: #fff;
+}
+
+
+.heading{
+    text-align: center;
+    margin-top: 5rem;
+    font-size: 5rem;
+}
+
+.lives{
+    position: absolute;
+    top: 4rem;
+    right: 10rem;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: 0 auto;  
+    justify-content: center;
+}
+
+.guess {
+    margin: 5rem;
+    text-align: center;
+}
+
+.guess p{
+    text-align: center;
+    font-size: 5rem;
+    
+}
+
+.background {
+    background-color: salmon !important;
+}
+
+.keyboard button{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(105, 209, 223);
+    width: 2rem;
+    font-size: 2rem;
+    padding: 2rem 3rem;
+    margin: 1.5rem 1rem;
+    color: #fff;
+    outline: none;
+    border: 1px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0, .5);
+    text-transform: uppercase;
+}
+
+
+.replay {
+    display: flex;
+    width: 25%;
+    margin: 3rem auto;
+    justify-content: space-evenly;
+    
+}
+
+.replay button {
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    outline: none;
+    border-radius: 50px;
+    width: 12rem;
+    border: 1px solid rgb(105, 209, 223);
+    box-shadow: 0 0 3px rgba(0,0,0, .5);
+}
+
