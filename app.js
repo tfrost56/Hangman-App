@@ -78,7 +78,7 @@
     //change image as lives decrease.
     function updateHangmanImage(){
        const img = document.getElementById("hangmanImg");
-       img.setAttribute("src", `/Hangman/${lives}.jpg`); //images change name in corrospondence with lives
+       img.setAttribute("src", `Images/${lives}.jpg`); //images change name in corrospondence with lives
     }
 
     function updateLivesUi(){document.querySelector(".lives span").innerHTML = lives;}
