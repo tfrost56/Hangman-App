@@ -28,14 +28,6 @@ body{
     right: 10rem;
 }
 
-.keyboard {
-    display: flex;
-    flex-wrap: wrap;
-    width: 60%;
-    margin: 0 auto;  
-    justify-content: center;
-}
-
 .guess {
     margin: 5rem;
     text-align: center;
@@ -47,11 +39,15 @@ body{
     
 }
 
-.background {
-    background-color: salmon !important;
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: 0 auto;  
+    justify-content: center;
 }
 
-.keyboard button{
+.btn{
     display: flex;
     justify-content: center;
     background-color: rgb(105, 209, 223);
@@ -83,5 +79,51 @@ body{
     width: 12rem;
     border: 1px solid rgb(105, 209, 223);
     box-shadow: 0 0 3px rgba(0,0,0, .5);
+    transition: all .3s;
 }
 
+.replay button:hover {
+    background: rgb(105, 209, 223);
+}
+
+
+/* Class List Add on */
+.background {
+    background-color: salmon !important; 
+}
+
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 75em) {
+    html {
+      font-size: 50%; } 
+    .keyboard {
+        width: 100%;
+    }
+    .lives {
+        position: initial;
+        padding-top: 2rem;
+        display: flex;
+        justify-content: center;
+        }
+    .lives span {
+        padding-left: 1rem;
+        }
+    }
+@media only screen and (max-width: 37.5em) {
+    html {
+        font-size: 40%;
+    }
+    .guess {
+        margin: 0;
+    }
+    .guess p {
+        padding-bottom: 2rem;
+    }
+    #hangmanImg {
+        height: 40rem;
+    }
+    .replay {
+        width: 50%;
+    }
+}

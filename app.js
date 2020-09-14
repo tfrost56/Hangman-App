@@ -27,38 +27,38 @@
     let lives = 6;
     let guessed = [];
     let wordStatus = null;
-    let orginalText = document.querySelector(".keyboard").innerHTML;
+    let orginalText = document.querySelector(".keyboard").innerHTML; //Initial state of the keyboard
     let replayBtn = document.querySelector("#replayBtn");
     let letters = document.getElementsByClassName("btn"); //obtaining all keys on keyboard
 
-    //first function - create a random choice of the possible answers. 
-    function randomWord(){
+    // Create a random choice of the possible answers. 
+    function randomAnswer(){
         answer = countries[Math.floor(Math.random() * countries.length)].toUpperCase();
         return answer;
     };
     
-     //add event listner to each key whilst extracting text content.
-     function keyEvent() {
+    //add event listner to each key whilst extracting text content.
+    function keyEvent() {
         for(let el of letters){
             el.addEventListener("click", function(){
-                let letter = el.textContent.toUpperCase();
-                el.classList.add("background"); //removes picked option
-                handleGuess(letter);
+                let chosenLetter = el.textContent.toUpperCase();
+                el.classList.add("background"); //removes picked option with Aesthetic 
+                handleGuess(chosenLetter);
                 el.setAttribute("disabled", true); //prevents a letter to be pressed multiples times
             });        
         };      
     };
-    
+
     //Generate the chosen word in a hidden capacity.
     function guessedWord(){
         wordStatus = answer.split("").map(function (letter){
             if(guessed.indexOf(letter) >= 0){
                 return letter; //check all letters of the answer against the guessed array and return matches. 
-            } else return " _ ";
+            } else return " _ "; //initally the guessed array will be empty and everything will be _
         }).join("");
         document.querySelector(".guess p").innerHTML = wordStatus;
     };
-
+    
     //Handle the picked character
     function handleGuess(pickedLetter){
         if(guessed.indexOf(pickedLetter) === -1){
@@ -75,7 +75,7 @@
             updateHangmanImage(); //
         }
     }
-
+    //change image as lives decrease.
     function updateHangmanImage(){
        const img = document.getElementById("hangmanImg");
        img.setAttribute("src", `/Hangman/${lives}.jpg`); //images change name in corrospondence with lives
@@ -88,25 +88,37 @@
         if(answer === wordStatus){document.querySelector(".keyboard").innerHTML = "YOU WIN";}}
     function checkIfLost() {
         if(lives < 1){document.querySelector(".keyboard").innerHTML = `YOU LOOSE THE ANSWER IS ${answer}.`;}}
-    function recreateKeyboard(){
-        document.querySelector(".keyboard").innerHTML = orginalText;
-    }
     
+    //click event to change lives.
     function difficulty (){
-        document.querySelector("#hard").addEventListener("click", function(){
+        let btn = document.querySelector("#difficulty");
+        btn.addEventListener("click", function(){
+        if(btn.innerHTML === "Hard"){
+            btn.innerHTML = "Easy";
             lives = 3;
             updateLivesUi();
+        } else {
+            btn.innerHTML = "Hard";
+            lives = 6;
+            updateLivesUi();
+        }
         });
     };
 
-    const gameReset = () => {
+    function recreateKeyboard(){
+        document.querySelector(".keyboard").innerHTML = orginalText;
+    }
+
+    //refactored a little
+    function gameReset() {
         updateLivesUi();
         keyEvent();
-        randomWord();
+        randomAnswer();
         guessedWord();
         updateHangmanImage();
     };
 
+    //click event to restart the program
     function replay (){
         replayBtn.addEventListener("click", function(){
         guessed = [];
