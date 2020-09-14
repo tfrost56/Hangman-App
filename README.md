@@ -1,1 +1,1 @@
-.h1 Hangman-App
+# Hangman-App
