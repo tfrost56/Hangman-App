@@ -25,11 +25,16 @@
     //Initialising the variables
     let answer = ""; 
     let lives = 6;
-    let guessed = [];
+    let guessed = {};
     let wordStatus = null;
     let orginalText = document.querySelector(".keyboard").innerHTML; //Initial state of the keyboard
     let replayBtn = document.querySelector("#replayBtn");
     let letters = document.getElementsByClassName("btn"); //obtaining all keys on keyboard
+    let btn = document.querySelector("#difficulty");
+    let hint = document.querySelector("#hint");
+    
+
+
 
     // Create a random choice of the possible answers. 
     function randomAnswer(){
@@ -45,24 +50,25 @@
                 el.classList.add("background"); //removes picked option with Aesthetic 
                 handleGuess(chosenLetter);
                 el.setAttribute("disabled", true); //prevents a letter to be pressed multiples times
+                btn.setAttribute("disabled", true);
             });        
         };      
     };
 
     //Generate the chosen word in a hidden capacity.
     function guessedWord(){
-        wordStatus = answer.split("").map(function (letter){
-            if(guessed.indexOf(letter) >= 0){
-                return letter; //check all letters of the answer against the guessed array and return matches. 
-            } else return " _ "; //initally the guessed array will be empty and everything will be _
-        }).join("");
+        wordStatus = answer.split("").map(letter => guessed[letter] ? letter : " _ ").join("");
+        //     if(guessed[letter] ){
+        //     //     return letter; //check all letters of the answer against the guessed array and return matches. 
+        //     // } else return " _ "; //initally the guessed array will be empty and everything will be _
+        // }).
         document.querySelector(".guess p").innerHTML = wordStatus;
     };
     
     //Handle the picked character
     function handleGuess(pickedLetter){
-        if(guessed.indexOf(pickedLetter) === -1){
-            guessed.push(pickedLetter); //store all picked letters that are clicked
+        if(!guessed[pickedLetter]){
+            guessed[pickedLetter] = "guess"; //store all picked letters that are clicked
         } 
     
         if(answer.indexOf(pickedLetter) >= 0){ //if there is a letter within answer that matches 
@@ -90,8 +96,7 @@
         if(lives < 1){document.querySelector(".keyboard").innerHTML = `YOU LOOSE THE ANSWER IS ${answer}.`;}}
     
     //click event to change lives.
-    function difficulty (){
-        let btn = document.querySelector("#difficulty");
+    function difficulty () {
         btn.addEventListener("click", function(){
         if(btn.innerHTML === "Hard"){
             btn.innerHTML = "Easy";
@@ -116,11 +121,13 @@
         randomAnswer();
         guessedWord();
         updateHangmanImage();
+        
     };
 
     //click event to restart the program
     function replay (){
         replayBtn.addEventListener("click", function(){
+        
         guessed = [];
         lives = 6;
         wordStatus = null;
@@ -128,6 +135,13 @@
         gameReset();
         });
     };
+
+
+    // function hint() {
+    //     hint.addEventListener("click", () => {
+
+    //     });
+    // };
 
     difficulty();
     gameReset();
