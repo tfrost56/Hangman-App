@@ -25,18 +25,25 @@
     //Initialising the variables
     let answer = ""; 
     let lives = 6;
-    let guessed = [];
+    let guessed = {};
     let wordStatus = null;
     let orginalText = document.querySelector(".keyboard").innerHTML; //Initial state of the keyboard
     let replayBtn = document.querySelector("#replayBtn");
     let letters = document.getElementsByClassName("btn"); //obtaining all keys on keyboard
+    let difficultyBtn = document.querySelector("#difficulty");
 
     // Create a random choice of the possible answers. 
     function randomAnswer(){
         answer = countries[Math.floor(Math.random() * countries.length)].toUpperCase();
         return answer;
     };
-    
+    function generateKeyboard () {
+        let alphabet = "abcdefghijklmnopqrstuvwxyz".split("").map(letter => { 
+           return `<button class = btn>` + letter + `</button>`
+        }).join("");
+        let keys = document.querySelector(".keyboard");
+        keys.innerHTML =  alphabet;
+    }
     //add event listner to each key whilst extracting text content.
     function keyEvent() {
         for(let el of letters){
@@ -45,6 +52,7 @@
                 el.classList.add("background"); //removes picked option with Aesthetic 
                 handleGuess(chosenLetter);
                 el.setAttribute("disabled", true); //prevents a letter to be pressed multiples times
+                difficultyBtn.setAttribute("disabled", true);
             });        
         };      
     };
@@ -52,7 +60,7 @@
     //Generate the chosen word in a hidden capacity.
     function guessedWord(){
         wordStatus = answer.split("").map(function (letter){
-            if(guessed.indexOf(letter) >= 0){
+            if(guessed[letter]){
                 return letter; //check all letters of the answer against the guessed array and return matches. 
             } else return " _ "; //initally the guessed array will be empty and everything will be _
         }).join("");
@@ -61,8 +69,8 @@
     
     //Handle the picked character
     function handleGuess(pickedLetter){
-        if(guessed.indexOf(pickedLetter) === -1){
-            guessed.push(pickedLetter); //store all picked letters that are clicked
+        if(!guessed[pickedLetter]){
+            guessed[pickedLetter] = "guessed"; //store all picked letters that are clicked
         } 
     
         if(answer.indexOf(pickedLetter) >= 0){ //if there is a letter within answer that matches 
@@ -91,47 +99,61 @@
     
     //click event to change lives.
     function difficulty (){
-        let btn = document.querySelector("#difficulty");
-        btn.addEventListener("click", function(){
-        if(btn.innerHTML === "Hard"){
-            btn.innerHTML = "Easy";
-            lives = 3;
-            updateLivesUi();
-        } else {
-            btn.innerHTML = "Hard";
-            lives = 6;
-            updateLivesUi();
-        }
+        
+        difficultyBtn.addEventListener("click", function(){
+            if(difficultyBtn.innerHTML === "Hard"){
+                difficultyBtn.innerHTML = "Easy";
+                lives = 3;
+                updateLivesUi();
+                
+            } else {
+                difficultyBtn.innerHTML = "Hard";
+                lives = 6;
+                updateLivesUi();
+            }
         });
     };
 
     function recreateKeyboard(){
         document.querySelector(".keyboard").innerHTML = orginalText;
+        difficultyBtn.removeAttribute("disabled");
     }
 
     //refactored a little
     function gameReset() {
+        generateKeyboard();
         updateLivesUi();
         keyEvent();
         randomAnswer();
         guessedWord();
         updateHangmanImage();
+        
     };
 
     //click event to restart the program
     function replay (){
         replayBtn.addEventListener("click", function(){
-        guessed = [];
+        guessed = {};
         lives = 6;
         wordStatus = null;
         recreateKeyboard();
+        generateKeyboard();
         gameReset();
+        
         });
     };
-
+    
     difficulty();
     gameReset();
     replay();
+
+
+
+
+
+
+
+
 
 
 

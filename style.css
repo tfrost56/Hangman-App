@@ -46,6 +46,14 @@ body{
     margin: 0 auto;  
     justify-content: center;
 }
+.test {
+    font-size: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: 0 auto;  
+    justify-content: center;
+}
 
 .btn{
     display: flex;
@@ -126,4 +134,19 @@ body{
     .replay {
         width: 50%;
     }
+}
+
+.keyboardBtn {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(105, 209, 223);
+    width: 2rem;
+    font-size: 2rem;
+    padding: 2rem 3rem;
+    margin: 1.5rem 1rem;
+    color: #fff;
+    outline: none;
+    border: 1px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0, .5);
+    text-transform: uppercase;
 }
